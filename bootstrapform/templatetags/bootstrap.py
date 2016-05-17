@@ -1,11 +1,16 @@
-from django import forms
+from django import forms, template, VERSION as django_version
 from django.template import Context
 from django.template.loader import get_template
-from django import template
 
 from bootstrapform import config
 
+if django_version < (1, 8):
+    from django.template import Context
+else:
+    Context = dict
+
 register = template.Library()
+
 
 @register.filter
 def bootstrap(element):
@@ -44,6 +49,7 @@ def bootstrap_horizontal(element, label_cols='col-sm-2 col-lg-2'):
         markup_classes['value'] += ' ' + '-'.join(splitted_class)
 
     return render(element, markup_classes)
+
 
 @register.filter
 def add_input_classes(field):
