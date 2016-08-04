@@ -1,5 +1,1 @@
-from distutils.version import StrictVersion
-
-
-VERSION = StrictVersion('3.1.0')
-
+VERSION = "3.1.0+polyconseil2"
