@@ -1,5 +1,6 @@
 import django
 from django import forms, VERSION as django_version
+from django.forms.boundfield import BoundField
 from django.template import Context
 from django.template.loader import get_template
 from django import template
@@ -76,9 +77,7 @@ def add_input_classes(field):
 
 
 def render(element, markup_classes):
-    element_type = element.__class__.__name__.lower()
-
-    if element_type == 'boundfield':
+    if isinstance(element, BoundField):
         add_input_classes(element)
         template = get_template("bootstrapform/field.html")
         context = {'field': element, 'classes': markup_classes, 'form': element.form}
